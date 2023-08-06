@@ -9,9 +9,13 @@ const {createStore} = require("redux");
 const INCREMENT = "INCREMENT";
 const DECREMENT = "DECREMENT";
 const RESET = "RESET";
+const INCREMENT_BY_VALUE = "INCREMENT_BY_VALUE";
+const INCREMENT_USER = "INCREMENT_USER";
 
 // state
 const initialState = {
+    users: ["pavel"],
+    user_count: 1,
     count: 0
 }
 
@@ -30,6 +34,20 @@ const decrementCounterAction = () => {
 const resetCounterAction = () => {
     return{
         type: RESET
+    };
+};
+
+const incrementCounterByValue = (value) => {
+    return{
+        type: INCREMENT_BY_VALUE,
+        payload: value
+    };
+};
+
+const incrementUser = (user) => {
+    return{
+        type: INCREMENT_USER,
+        payload: user
     };
 };
 
@@ -54,6 +72,19 @@ const counterReducer = (state=initialState, action) => {
                 ...state,
                 count: 0
             };
+
+        case INCREMENT_BY_VALUE:
+            return{
+                ...state,
+                count: state.count + action.payload
+            };
+
+        case INCREMENT_USER:
+            return{
+                ...state,
+                users: [...state.users, action.payload],
+                user_count: state.user_count + 1
+            };
         default:
             state;
     }
@@ -68,10 +99,13 @@ store.subscribe(() => {
 })
 
 // store dispatch
-store.dispatch(incrementCounterAction());
-store.dispatch(incrementCounterAction());
-store.dispatch(incrementCounterAction());
-store.dispatch(decrementCounterAction());
-store.dispatch(decrementCounterAction());
-store.dispatch(resetCounterAction());
-store.dispatch(incrementCounterAction());
+// store.dispatch(incrementCounterAction());
+// store.dispatch(incrementCounterAction());
+// store.dispatch(incrementCounterAction());
+// store.dispatch(decrementCounterAction());
+// store.dispatch(decrementCounterAction());
+// store.dispatch(resetCounterAction());
+// store.dispatch(incrementCounterAction());
+//store.dispatch(incrementCounterByValue(5));
+store.dispatch(incrementUser("monir"));
+store.dispatch(incrementUser("biplob"));
